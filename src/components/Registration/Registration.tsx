@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useReducer } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -7,31 +7,43 @@ import {
   AuthError,
 } from "firebase/auth";
 
+import classNames from "classnames";
+
 import { auth } from "../../firebaseConfig";
+import { reducer, initialState } from "../../utils/registrationReducerData";
 
 export function Registration() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [newType, setNewType] = useState(false);
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailUnfocused, setEmailUnfocused] = useState(false);
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
-  const [passwordUnfocused, setPasswordUnfocused] = useState(false);
   const [registrationError, setRegistrationError] = useState<AuthError | any>(
     null
   );
-  const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(mail);
-  const disabledBtn = !mailFormatErr && password.length >= 6;
-
-  onAuthStateChanged(auth, (currentUser) => {
-    setCurrentUser(currentUser);
+  const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(state.mail);
+  const disabledBtn = mailFormatErr || state.password.length < 6;
+  const passwordInputClass = classNames({
+    registration__input: true,
+    registration__input_type_pw: true,
+    registration__input_type_error:
+      !state.passwordUnfocused && state.password.length < 6,
+  });
+  const mailInputClass = classNames({
+    registration__input: true,
+    registration__input_type_error: mailFormatErr && !state.emailUnfocused,
   });
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setCurrentUser(currentUser);
+    });
+  }, [currentUser]);
+
   function handleMailChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setMail(e.target.value);
+    dispatch({ type: "changeMail", payload: e.target.value });
   }
 
   function handlePwChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setPassword(e.target.value);
+    dispatch({ type: "changePassword", payload: e.target.value });
   }
 
   function handleToggleViewBtn() {
@@ -41,28 +53,24 @@ export function Registration() {
   async function handleRegistration(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, mail, password);
+      await createUserWithEmailAndPassword(auth, state.mail, state.password);
     } catch (err: AuthError | any) {
       setRegistrationError(err.code);
     }
-    setMail("");
-    setPassword("");
-    setEmailUnfocused(false);
-    setPasswordUnfocused(false);
+    dispatch({ type: "stateAfterFormSubmit" });
   }
 
   function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     switch (e.target.name) {
       case "email":
-        setEmailUnfocused(true);
+        dispatch({ type: "blurMail" });
         setRegistrationError(null);
         break;
       case "password":
-        setPasswordUnfocused(true);
+        dispatch({ type: "blurPassword" });
         break;
       default:
-        setEmailUnfocused(false);
-        setPasswordUnfocused(false);
+        dispatch({ type: "blurDefault" });
     }
   }
 
@@ -75,13 +83,9 @@ export function Registration() {
             Электронная почта
           </label>
           <input
-            value={mail}
+            value={state.mail}
             onChange={handleMailChange}
-            className={`registration__input ${
-              mailFormatErr && emailUnfocused
-                ? "registration__input_type_error"
-                : ""
-            }`}
+            className={mailInputClass}
             id="mail"
             placeholder="example@mail.ru"
             type="email"
@@ -89,18 +93,14 @@ export function Registration() {
             onBlur={blurHandler}
           />
           <span className="registration__error">
-            {emailUnfocused && mailFormatErr && "Неверный формат"}
+            {!state.emailUnfocused && mailFormatErr && "Неверный формат"}
           </span>
           <label className="registration__lable">
             Пароль
             <input
-              value={password}
+              value={state.password}
               onChange={handlePwChange}
-              className={`registration__input registration__input_type_pw ${
-                passwordUnfocused && password.length < 6
-                  ? "registration__input_type_error"
-                  : ""
-              }`}
+              className={passwordInputClass}
               id="password"
               type={`${newType ? "text" : "password"}`}
               maxLength={30}
@@ -117,12 +117,12 @@ export function Registration() {
             ></button>
           </label>
           <span className="registration__error">
-            {passwordUnfocused &&
-              password.length < 6 &&
+            {!state.passwordUnfocused &&
+              state.password.length < 6 &&
               "Длина пароля меньше 6"}
           </span>
           <span className="registration__error">{registrationError}</span>
-          <button disabled={!disabledBtn} className="registration__button">
+          <button disabled={disabledBtn} className="registration__button">
             Зарегистрироваться
           </button>
         </form>
