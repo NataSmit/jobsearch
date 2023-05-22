@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useReducer } from "react";
+import { Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -125,6 +126,13 @@ export function Registration() {
           <button disabled={disabledBtn} className="registration__button">
             Зарегистрироваться
           </button>
+
+          <Link to="/signin" className="registration__redirect">
+            Уже есть аккаунт?{" "}
+            <span className="registration__redirect registration__redirect_type_span">
+              Войти
+            </span>
+          </Link>
         </form>
       </div>
     </div>
