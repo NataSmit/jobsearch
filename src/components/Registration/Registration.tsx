@@ -39,11 +39,11 @@ export function Registration() {
   }, [currentUser]);
 
   function handleMailChange(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch({ type: "changeMail", payload: e.target.value });
+    dispatch({ type: "CHANGED_MAIL", payload: e.target.value });
   }
 
   function handlePwChange(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch({ type: "changePassword", payload: e.target.value });
+    dispatch({ type: "CHANGED_PASSWORD", payload: e.target.value });
   }
 
   function handleToggleViewBtn() {
@@ -57,20 +57,20 @@ export function Registration() {
     } catch (err: AuthError | any) {
       setRegistrationError(err.code);
     }
-    dispatch({ type: "stateAfterFormSubmit" });
+    dispatch({ type: "CHANGED_STATE_AFTER_FORM_SUBMIT" });
   }
 
   function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     switch (e.target.name) {
       case "email":
-        dispatch({ type: "blurMail" });
+        dispatch({ type: "BLUR_MAIL" });
         setRegistrationError(null);
         break;
       case "password":
-        dispatch({ type: "blurPassword" });
+        dispatch({ type: "BLUR_PASSWORD" });
         break;
       default:
-        dispatch({ type: "blurDefault" });
+        dispatch({ type: "BLUR_DEFAULT" });
     }
   }
 
