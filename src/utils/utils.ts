@@ -1,6 +1,8 @@
-import { ServerJobDetails, ServerJobPositionData } from "../types/types";
+import { ServerJobPositionDescription, ServerJobAdInfo } from "../types/types";
 
-function convertServerJobDetails(obj: ServerJobDetails) {
+function convertServerJobPositionDescription(
+  obj: ServerJobPositionDescription
+) {
   return {
     company: obj.company,
     creationDate: obj.creation_date,
@@ -12,7 +14,7 @@ function convertServerJobDetails(obj: ServerJobDetails) {
   };
 }
 
-function convertServerJobPositionData(obj: ServerJobPositionData) {
+export function convertServerJobAdData(obj: ServerJobAdInfo) {
   return {
     companyName: obj.company_name,
     publicationTime: obj.formatted_relative_time,
