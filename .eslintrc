@@ -31,6 +31,6 @@
         "newlines-between": "always-and-inside-groups"
         }
       ],
-      "react/jsx-no-useless-fragment": "on"
+      "react/jsx-no-useless-fragment": "warn"
     }
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useReducer } from "react";
+import { Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -11,6 +12,7 @@ import classNames from "classnames";
 
 import { auth } from "../../firebaseConfig";
 import { reducer, initialState } from "../../utils/registrationReducerData";
+import { emailTemplateRegex } from "../../utils/regex";
 
 export function Registration() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -19,7 +21,7 @@ export function Registration() {
   const [registrationError, setRegistrationError] = useState<AuthError | any>(
     null
   );
-  const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(state.mail);
+  const mailFormatErr = !emailTemplateRegex.test(state.mail);
   const disabledBtn = mailFormatErr || state.password.length < 6;
   const passwordInputClass = classNames({
     registration__input: true,
@@ -54,8 +56,9 @@ export function Registration() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, state.mail, state.password);
-    } catch (err: AuthError | any) {
-      setRegistrationError(err.code);
+    } catch (err) {
+      const typedAuthErr = err as AuthError;
+      setRegistrationError(typedAuthErr.code);
     }
     dispatch({ type: "CHANGED_STATE_AFTER_FORM_SUBMIT" });
   }
@@ -125,6 +128,13 @@ export function Registration() {
           <button disabled={disabledBtn} className="registration__button">
             Зарегистрироваться
           </button>
+
+          <Link to="/signin" className="registration__redirect">
+            Уже есть аккаунт?{" "}
+            <span className="registration__redirect registration__redirect_type_span">
+              Войти
+            </span>
+          </Link>
         </form>
       </div>
     </div>

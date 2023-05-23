@@ -1,4 +1,6 @@
 @import url('./vendor/normalize.css');
 @import url('./vendor/fonts/fonts.css');
 @import url('./components/Root/Root.css');
-@import url('./components/Registration/Registration.css')
+@import url('./components/Registration/Registration.css');
+@import url('./components/Login/Login.css');
+
