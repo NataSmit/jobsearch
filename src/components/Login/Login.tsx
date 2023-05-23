@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, AuthError } from "firebase/auth";
 import classNames from "classnames";
 
 import { auth } from "../../firebaseConfig";
+import { emailTemplateRegex } from "../../utils/regex";
 
 export function Login() {
   const [newType, setNewType] = useState(false);
@@ -12,7 +13,7 @@ export function Login() {
   const [emailUnfocused, setEmailUnfocused] = useState(true);
   const [passwordUnfocused, setPasswordUnfocused] = useState(true);
   const [loginError, setLoginError] = useState<AuthError | any>(null);
-  const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(mail);
+  const mailFormatErr = !emailTemplateRegex.test(mail);
   const disabledBtn = mailFormatErr || password.length < 6;
   const passwordInputClass = classNames({
     login__input: true,
@@ -51,9 +52,11 @@ export function Login() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, mail, password);
-    } catch (err: AuthError | any) {
-      setLoginError(err.code);
+    } catch (err) {
+      const typedAuthErr = err as AuthError;
+      setLoginError(typedAuthErr.code);
     }
+
     setDefaultState();
   }
 
