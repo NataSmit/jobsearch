@@ -1,0 +1,10 @@
+.jobInfoPage__company {
+  width: 500px;
+  border: 1px solid green;
+  display: flex;
+}
+
+.jjobInfoPage__logoImage {
+  width: 100%;
+  object-fit: contain;
+}

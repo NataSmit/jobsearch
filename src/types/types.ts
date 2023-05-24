@@ -1,4 +1,4 @@
-export type ServerJobPositionData = {
+export type ServerJobAdInfo = {
   company_name: string;
   formatted_relative_time: string;
   id: string;
@@ -6,9 +6,10 @@ export type ServerJobPositionData = {
   locality: string;
   location: string;
   title: string;
+  pub_date_ts_milli: number;
 };
 
-export type ServerJobDetails = {
+export type ServerJobPositionDescription = {
   company: object;
   creation_date: string;
   description: string;
@@ -16,4 +17,14 @@ export type ServerJobDetails = {
   job_type: null | string;
   location: string;
   salary: null | string;
+};
+
+export type JobAd = {
+  companyName: string;
+  id: string;
+  link: string;
+  locality: string;
+  location: string;
+  publicationTime: string;
+  title: string;
 };

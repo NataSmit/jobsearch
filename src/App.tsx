@@ -5,6 +5,7 @@ import { Root } from "./components/Root/Root";
 import { Registration } from "./components/Registration/Registration";
 import { Login } from "./components/Login/Login";
 import { Main } from "./components/Main/Main";
+import { JobInfoPage } from "./components/JobInfoPage/JobInfoPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/signup" element={<Registration />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/" element={<Main />} />
+          <Route path="/:id" element={<JobInfoPage />}></Route>
         </Routes>
       </Root>
     </div>

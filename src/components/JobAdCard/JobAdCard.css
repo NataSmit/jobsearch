@@ -1,0 +1,31 @@
+.jobAd {
+  width: 305px;
+  padding: 25px;
+  box-shadow: 0px 0.996045px 3.98418px rgba(51, 51, 51, 0.15);
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.jobAd__time {
+  color: #6e8098;
+}
+
+.jobAd__title {
+  color: #19202d;
+  font-size: 20px;
+  margin: 20px 0;
+  flex-grow: 1;
+}
+
+.jobAd__company {
+  margin-bottom: 50px;
+  color: #6e8098;
+}
+
+.jobAd__location {
+  color: #5964e0;
+  font-weight: bold;
+}
