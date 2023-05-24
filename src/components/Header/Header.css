@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 60px 20px;
+  padding: 40px 20px 80px 20px;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -51,7 +51,13 @@
   padding: 5px 10px;
   border-radius: 5px;
   font-weight: bold;
-  color: #5964e0
+  color: #5964e0;
+  transition: opacity .3s ease;
+}
+
+.header__button:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }
 
 .header__buttons {
@@ -60,6 +66,10 @@
 
 .header__logo {
   width: 115px;
+}
+
+.header__logo:hover {
+  opacity: 0.7;
 }
 
 .header__logo-img {

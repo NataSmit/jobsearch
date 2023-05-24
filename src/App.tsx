@@ -24,7 +24,15 @@ function App() {
               </>
             }
           />
-          <Route path="/:id" element={<JobInfoPage />}></Route>
+          <Route
+            path="/:id"
+            element={
+              <>
+                <Header />
+                <JobInfoPage />
+              </>
+            }
+          ></Route>
         </Routes>
       </Root>
     </div>
