@@ -7,4 +7,5 @@
 @import url('./components/JobAdCard/JobAdCard.css');
 @import url('./components/JobInfoPage/JobInfoPage.css');
 @import url('./components/Header/Header.css');
-@import url('./components/SearchForm/SearchForm.css')
+@import url('./components/SearchForm/SearchForm.css');
+@import url('./components/Favorites/Favorites.css');

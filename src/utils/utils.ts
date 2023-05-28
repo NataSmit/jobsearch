@@ -1,5 +1,10 @@
-import { ServerJobPositionDescription, ServerJobAdInfo } from "../types/types";
-import { JobAd } from "../types/types";
+import {
+  ServerJobPositionDescription,
+  ServerJobAdInfo,
+  FavoriteJobAdDB,
+  FavoriteJobAd,
+} from "../types/types";
+import { JobAd, FavoritesDB } from "../types/types";
 
 function convertServerJobPositionDescription(
   obj: ServerJobPositionDescription
@@ -25,4 +30,26 @@ export function convertServerJobAdData(obj: ServerJobAdInfo): JobAd {
     location: obj.location,
     title: obj.title,
   };
+}
+
+export function convertFirebaseJobAdData(obj: FavoriteJobAdDB): FavoriteJobAd {
+  return {
+    companyName: obj.companyName,
+    publicationTime: obj.publicationTime,
+    id: obj.favoriteJobAdId,
+    location: obj.location,
+    title: obj.title,
+    firebaseDocId: obj.id,
+    userID: obj.userID,
+    locality: obj.locality,
+    link: obj.link,
+  };
+}
+
+export function filterFavoritesByUserId(
+  favorites: FavoritesDB[],
+  userId: string
+) {
+  const result = favorites.filter((favObj) => favObj.userID === userId);
+  return result.map((favObj) => favObj.favoriteJobAdId);
 }

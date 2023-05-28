@@ -1,11 +1,8 @@
-.main {
+.favorites {
   padding-bottom: 60px;
-  position: relative;
-  top: -40px;
-  
 }
 
-.main__container {
+.favorites__container {
   max-width: 1080px;
   margin: 0 auto;
   display: grid;
@@ -16,4 +13,10 @@
   box-sizing: border-box;
   justify-content: space-between;
   justify-items: center;
+}
+
+.favorites__link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }

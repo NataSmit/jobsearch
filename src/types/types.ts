@@ -28,3 +28,42 @@ export type JobAd = {
   publicationTime: string;
   title: string;
 };
+
+export type FavoriteJobAdDB = {
+  userID: string;
+  favoriteJobAdId: string;
+  companyName: string;
+  location: string;
+  publicationTime: string;
+  title: string;
+  id: string; // firebase id
+  link: string;
+  locality: string;
+};
+
+export type FavoriteJobAd = {
+  companyName: string;
+  publicationTime: string;
+  id: string;
+  location: string;
+  title: string;
+  firebaseDocId: string;
+  userID: string;
+  link: string;
+  locality: string;
+};
+
+export type JobAdClient = {
+  companyName: string;
+  publicationTime: string;
+  id: string;
+  location: string;
+  title: string;
+  firebaseDocId?: string;
+  userID?: string;
+};
+
+export type FavoritesDB = {
+  favoriteJobAdId: string;
+  userID: string;
+};
