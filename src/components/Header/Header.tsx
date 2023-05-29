@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import logo from "../../images/logo.8c0b6449.svg";
+import { handleSignOut } from "../../utils/manageFirestore";
 
 export function Header() {
   return (
@@ -29,7 +30,9 @@ export function Header() {
               </NavLink>
             </li>
           </ul>
-          <button className="header__button">Logout</button>
+          <button className="header__button" onClick={handleSignOut}>
+            Logout
+          </button>
         </nav>
       </div>
     </header>
