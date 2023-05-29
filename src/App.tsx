@@ -17,11 +17,9 @@ import { Favorites } from "./components/Favorites/Favorites";
 function App() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setCurrentUser(currentUser);
-    });
-  }, [currentUser]);
+  onAuthStateChanged(auth, (currentUser) => {
+    setCurrentUser(currentUser);
+  });
 
   return (
     <div className="App">

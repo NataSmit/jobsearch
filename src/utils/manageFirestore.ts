@@ -8,6 +8,9 @@ import {
   deleteDoc,
   setDoc,
 } from "firebase/firestore";
+import { signOut } from "firebase/auth";
+
+import { auth } from "../firebaseConfig";
 
 import { db } from "../firebaseConfig";
 
@@ -72,4 +75,8 @@ export async function addToFavoritesDB(userId: string, jobAdID: string) {
   } catch (err) {
     console.log(err);
   }
+}
+
+export async function handleSignOut() {
+  await signOut(auth);
 }

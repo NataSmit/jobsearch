@@ -1,12 +1,7 @@
 import React from "react";
 import { useState, useEffect, useReducer } from "react";
 import { Link } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  User as FirebaseUser,
-  AuthError,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, AuthError } from "firebase/auth";
 
 import classNames from "classnames";
 
@@ -17,7 +12,6 @@ import { emailTemplateRegex } from "../../utils/regex";
 export function Registration() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [newType, setNewType] = useState(false);
-  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
   const [registrationError, setRegistrationError] = useState<AuthError | any>(
     null
   );
@@ -33,12 +27,6 @@ export function Registration() {
     registration__input: true,
     registration__input_type_error: mailFormatErr && !state.emailUnfocused,
   });
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setCurrentUser(currentUser);
-    });
-  }, [currentUser]);
 
   function handleMailChange(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch({ type: "CHANGED_MAIL", payload: e.target.value });
