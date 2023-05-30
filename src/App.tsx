@@ -13,6 +13,7 @@ import { JobInfoPage } from "./components/JobInfoPage/JobInfoPage";
 import { Header } from "./components/Header/Header";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import { Favorites } from "./components/Favorites/Favorites";
+import { useGetJobAdsQuery } from "./redux/jobAdsApi";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
@@ -20,6 +21,9 @@ function App() {
   onAuthStateChanged(auth, (currentUser) => {
     setCurrentUser(currentUser);
   });
+
+  const { data } = useGetJobAdsQuery("");
+  console.log("testData", data);
 
   return (
     <div className="App">
