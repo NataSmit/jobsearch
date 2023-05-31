@@ -40,6 +40,10 @@
   font-family: inherit;
 }
 
+.header__list-link.active {
+  text-decoration: underline;
+}
+
 .header__list-item:last-child {
   margin-right: 0;
 }

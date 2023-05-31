@@ -13,6 +13,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
 import { db } from "../firebaseConfig";
+import { JobAd } from "../types/types";
 
 export const jobAdsCollectionRef = collection(db, "jobAds");
 
@@ -65,12 +66,16 @@ export async function deleteJobAd(docId: string) {
 }
 
 //using setDoc() function where I must provide docID
-export async function addToFavoritesDB(userId: string, jobAdID: string) {
+export async function addToFavoritesDB(userId: string, jobAd: JobAd) {
   console.log("i am working");
   try {
-    await setDoc(doc(db, "jobAds", jobAdID), {
+    await setDoc(doc(db, "jobAds", jobAd.id), {
       userID: userId,
-      favoriteJobAdId: jobAdID,
+      id: jobAd.id,
+      companyName: jobAd.companyName,
+      location: jobAd.location,
+      publicationTime: jobAd.publicationTime,
+      title: jobAd.title,
     });
   } catch (err) {
     console.log(err);
