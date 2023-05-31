@@ -23,7 +23,7 @@ export function JobAdCard({ jobAd, favorites }: Props) {
 
   function handleLikeClick() {
     setLiked(!isLiked);
-    addToFavoritesDB(currentUser.uid, jobAd.id);
+    addToFavoritesDB(currentUser.uid, jobAd);
   }
 
   function deleteFavorite() {

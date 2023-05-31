@@ -9,3 +9,4 @@
 @import url('./components/Header/Header.css');
 @import url('./components/SearchForm/SearchForm.css');
 @import url('./components/Favorites/Favorites.css');
+@import url('./components/Preloader/Preloader.css')

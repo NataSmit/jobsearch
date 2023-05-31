@@ -1,19 +1,19 @@
 import React from "react";
-import { useState } from "react";
 import { ImSearch, ImLocation } from "react-icons/im";
 
-export function SearchForm() {
-  const [jobTitle, setJobTitle] = useState("");
-  const [location, setLocation] = useState("");
+interface Props {
+  jobTitle: string;
+  location: string;
+  handleJobTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLocationChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-  function handleJobTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setJobTitle(e.target.value);
-  }
-
-  function handleLocationChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setLocation(e.target.value);
-  }
-
+export function SearchForm({
+  jobTitle,
+  location,
+  handleJobTitleChange,
+  handleLocationChange,
+}: Props) {
   return (
     <form className="form">
       <div className="form__container">
@@ -25,6 +25,7 @@ export function SearchForm() {
             className="form__input"
             placeholder="Search by title..."
             id="title"
+            required
           />
         </label>
         <label htmlFor="location" className="form__lable">
@@ -35,6 +36,7 @@ export function SearchForm() {
             className="form__input"
             placeholder="Search by location..."
             id="location"
+            required
           />
         </label>
         <button className="form__submitBtn">Search</button>

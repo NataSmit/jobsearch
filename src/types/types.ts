@@ -22,48 +22,42 @@ export type ServerJobPositionDescription = {
 export type JobAd = {
   companyName: string;
   id: string;
-  link: string;
-  locality: string;
   location: string;
   publicationTime: string;
   title: string;
-};
-
-export type FavoriteJobAdDB = {
-  userID: string;
-  favoriteJobAdId: string;
-  companyName: string;
-  location: string;
-  publicationTime: string;
-  title: string;
-  id: string; // firebase id
-  link: string;
-  locality: string;
-};
-
-export type FavoriteJobAd = {
-  companyName: string;
-  publicationTime: string;
-  id: string;
-  location: string;
-  title: string;
-  firebaseDocId: string;
-  userID: string;
-  link: string;
-  locality: string;
-};
-
-export type JobAdClient = {
-  companyName: string;
-  publicationTime: string;
-  id: string;
-  location: string;
-  title: string;
-  firebaseDocId?: string;
   userID?: string;
 };
 
-export type FavoritesDB = {
-  favoriteJobAdId: string;
-  userID: string;
+export type JodAdDetails = {
+  companyName: string;
+  logo: string;
+  link: string;
+  creationDate: string;
+  description: string;
+  jobTitle: string;
+  location: string;
+  jobType: string;
+};
+
+export type JobAdDTO = {
+  count: number;
+  hits: ServerJobAdInfo[];
+  indeed_final_url: string;
+  next_page_id: number;
+  suggest_locality: null;
+};
+
+export type JobAdInfoDTO = {
+  company: {
+    indeed_absolute_link: string;
+    logo_url: string;
+    name: string;
+  };
+  creation_date: string;
+  description: string;
+  indeed_final_url: string;
+  job_title: string;
+  job_type: string;
+  location: string;
+  salary: any;
 };

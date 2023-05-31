@@ -39,6 +39,12 @@
   color: #5964e0;
   font-weight: bold;
   border-radius: 5px;
+  transition: opacity .3s ease;
+}
+
+.jobInfoPage__companyLink:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
 
 .jobInfoPage__companyName {
@@ -90,7 +96,8 @@
   padding: 17px 25px;
   color: white;
   font-weight: bold;
-  transition: opacity .3s ease
+  transition: opacity .3s ease;
+  flex: 0 0 135px;
 }
 
 .jobInfoPage__applyBtn:hover {

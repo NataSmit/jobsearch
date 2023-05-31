@@ -2,11 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { jobAdsApi } from "./jobAdsApi";
 
-import jobAdReducer from "./jobAdSlice";
-
 const store = configureStore({
   reducer: {
-    jobAdReducer,
     [jobAdsApi.reducerPath]: jobAdsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
