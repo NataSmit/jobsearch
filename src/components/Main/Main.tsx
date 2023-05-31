@@ -13,8 +13,8 @@ export function Main() {
   const debouncedLocation = useDebounce(location, 500);
   const { data, isLoading } = useGetJobAdsQuery(
     {
-      position: debouncedJobTitle,
-      city: debouncedLocation,
+      query: debouncedJobTitle,
+      location: debouncedLocation,
     },
     {
       skip: debouncedJobTitle.length < 3 || debouncedLocation.length < 3,

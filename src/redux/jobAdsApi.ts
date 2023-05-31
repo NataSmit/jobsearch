@@ -13,11 +13,12 @@ export const jobAdsApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getJobAds: builder.query<JobAd[], { position: string; city: string }>({
+    getJobAds: builder.query<JobAd[], { query: string; location: string }>({
       query: (args) => {
-        const { position, city } = args;
+        const { query, location } = args;
         return {
-          url: `jobs/search?query=${position}&location=${city}`,
+          url: `jobs/search`,
+          params: { query, location },
         };
       },
       transformResponse: ({ hits }: JobAdDTO) =>
