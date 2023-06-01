@@ -6,13 +6,12 @@ import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 
 import { Root } from "./components/Root/Root";
-import { Registration } from "./components/Registration/Registration";
-import { Login } from "./components/Login/Login";
-import { Main } from "./components/Main/Main";
-import { JobInfoPage } from "./components/JobInfoPage/JobInfoPage";
-import { Header } from "./components/Header/Header";
+import { Registration } from "./pages/Registration/Registration";
+import { Login } from "./pages/Login/Login";
+import { Main } from "./pages/Main/Main";
+import { JobInfoPage } from "./pages/JobInfoPage/JobInfoPage";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
-import { Favorites } from "./components/Favorites/Favorites";
+import { Favorites } from "./pages/Favorites/Favorites";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
@@ -28,33 +27,9 @@ function App() {
           <Routes>
             <Route path="/signup" element={<Registration />} />
             <Route path="/signin" element={<Login />} />
-            <Route
-              path="/"
-              element={
-                <>
-                  <Header />
-                  <Main />
-                </>
-              }
-            />
-            <Route
-              path="/favorites"
-              element={
-                <>
-                  <Header />
-                  <Favorites />
-                </>
-              }
-            />
-            <Route
-              path="/:id"
-              element={
-                <>
-                  <Header />
-                  <JobInfoPage />
-                </>
-              }
-            ></Route>
+            <Route path="/" element={<Main />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/:id" element={<JobInfoPage />} />
           </Routes>
         </Root>
       </CurrentUserContext.Provider>
