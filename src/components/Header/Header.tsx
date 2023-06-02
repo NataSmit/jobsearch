@@ -5,6 +5,11 @@ import logo from "../../images/logo.8c0b6449.svg";
 import { handleSignOut } from "../../utils/manageFirestore";
 
 export function Header() {
+  function handleLogout() {
+    handleSignOut();
+    localStorage.removeItem("currentUserID");
+  }
+
   return (
     <header className="header">
       <div className="header__container">
@@ -30,7 +35,7 @@ export function Header() {
               </NavLink>
             </li>
           </ul>
-          <button className="header__button" onClick={handleSignOut}>
+          <button className="header__button" onClick={handleLogout}>
             Logout
           </button>
         </nav>

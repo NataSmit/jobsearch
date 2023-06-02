@@ -6,6 +6,7 @@ interface Props {
   location: string;
   handleJobTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLocationChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearchFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export function SearchForm({
@@ -13,9 +14,10 @@ export function SearchForm({
   location,
   handleJobTitleChange,
   handleLocationChange,
+  handleSearchFormSubmit,
 }: Props) {
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleSearchFormSubmit}>
       <div className="form__container">
         <label htmlFor="title" className="form__lable">
           <ImSearch color="#5964e0" size={24} />

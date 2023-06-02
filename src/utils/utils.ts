@@ -1,19 +1,5 @@
-import { ServerJobPositionDescription, ServerJobAdInfo } from "../types/types";
-import { JobAd } from "../types/types";
-
-function convertServerJobPositionDescription(
-  obj: ServerJobPositionDescription
-) {
-  return {
-    company: obj.company,
-    creationDate: obj.creation_date,
-    description: obj.description,
-    jobTitle: obj.job_title,
-    jobType: obj.job_type,
-    location: obj.location,
-    salary: obj.salary,
-  };
-}
+import { ServerJobAdInfo } from "../types/types";
+import { JobAd, SearchParams, LSHistory } from "../types/types";
 
 export function convertServerJobAdData(obj: ServerJobAdInfo): JobAd {
   return {
@@ -27,20 +13,45 @@ export function convertServerJobAdData(obj: ServerJobAdInfo): JobAd {
   };
 }
 
-//export function convertFirebaseJobAdData(obj: FavoriteJobAdDB): FavoriteJobAd {
-//  return {
-//    companyName: obj.companyName,
-//    publicationTime: obj.publicationTime,
-//    id: obj.favoriteJobAdId,
-//    location: obj.location,
-//    title: obj.title,
-//    firebaseDocId: obj.id,
-//    userID: obj.userID,
-//    locality: obj.locality,
-//    link: obj.link,
-//  };
-//}
-
 export function filterFavoritesByUserId(favorites: JobAd[], userId: string) {
   return favorites.filter((favObj) => favObj.userID === userId);
+}
+
+function getHistoryFromLS() {
+  let history: LSHistory = {};
+  if (localStorage["history"]) {
+    history = JSON.parse(localStorage.getItem("history") || "") || {};
+  }
+  return history;
+}
+
+export function getSearchHistoryFromLS(currentUserId: string) {
+  const history = getHistoryFromLS();
+
+  if (currentUserId in history) {
+    return history[currentUserId];
+  } else {
+    return [];
+  }
+}
+
+export function addSearchPramsToLS(currentUserId: string, data: SearchParams) {
+  const history = getHistoryFromLS();
+
+  if (currentUserId in history) {
+    history[currentUserId].push(data);
+  } else {
+    history[currentUserId] = [data];
+  }
+  localStorage.setItem("history", JSON.stringify(history));
+}
+
+export function saveCurrentUserIDToLS(currentUserID: string) {
+  localStorage.setItem("currentUserID", currentUserID);
+}
+
+export function deleteUserHistoryFromLS(currentUserID: string) {
+  const history = JSON.parse(localStorage.getItem("history") || "");
+  delete history[currentUserID];
+  localStorage.setItem("history", JSON.stringify(history));
 }

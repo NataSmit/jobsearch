@@ -12,12 +12,18 @@ import { Main } from "./pages/Main/Main";
 import { JobInfoPage } from "./pages/JobInfoPage/JobInfoPage";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import { Favorites } from "./pages/Favorites/Favorites";
+import { History } from "./pages/History/History";
+import { SearchPage } from "./pages/SearchPage/SearchPage";
+import { saveCurrentUserIDToLS } from "./utils/utils";
 
 function App() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setCurrentUser(currentUser);
+  onAuthStateChanged(auth, (user) => {
+    setCurrentUser(user);
+    if (user) {
+      saveCurrentUserIDToLS(user.uid);
+    }
   });
 
   return (
@@ -30,6 +36,8 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/:id" element={<JobInfoPage />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/search/:query/:location" element={<SearchPage />} />
           </Routes>
         </Root>
       </CurrentUserContext.Provider>

@@ -61,3 +61,12 @@ export type JobAdInfoDTO = {
   location: string;
   salary: any;
 };
+
+export type SearchParams = {
+  jobTitle: string;
+  location: string;
+};
+
+export type LSHistory = {
+  [key: string]: SearchParams[];
+};
