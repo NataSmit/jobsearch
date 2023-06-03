@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { JobAdCard } from "../../components/JobAdCard/JobAdCard";
 import { SearchForm } from "../../components/SearchForm/SearchForm";
@@ -6,12 +6,18 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { Preloader } from "../../components/Preloader/Preloader";
 import { useGetJobAdsQuery } from "../../redux/jobAdsApi";
 import { Header } from "../../components/Header/Header";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { addSearchPramsToLS } from "../../utils/utils";
+import { useAppDispatch } from "../../redux/hook";
+import { addHistory } from "../../redux/historySlice";
 
 export function Main() {
+  const currentUser = useContext(CurrentUserContext);
+  const dispatch = useAppDispatch();
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
-  const debouncedJobTitle = useDebounce(jobTitle, 500);
-  const debouncedLocation = useDebounce(location, 500);
+  const debouncedJobTitle = useDebounce(jobTitle, 1500);
+  const debouncedLocation = useDebounce(location, 1500);
   const { data, isLoading } = useGetJobAdsQuery(
     {
       query: debouncedJobTitle,
@@ -30,6 +36,12 @@ export function Main() {
     setLocation(e.target.value);
   }
 
+  function handleSearchFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    addSearchPramsToLS(currentUser.uid, { jobTitle, location });
+    dispatch(addHistory({ jobTitle, location }));
+  }
+
   return (
     <>
       <Header />
@@ -39,6 +51,7 @@ export function Main() {
           location={location}
           handleJobTitleChange={handleJobTitleChange}
           handleLocationChange={handleLocationChange}
+          handleSearchFormSubmit={handleSearchFormSubmit}
         />
         {isLoading && <Preloader isLoading={isLoading} />}
         <ul className="main__container">

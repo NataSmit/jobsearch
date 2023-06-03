@@ -1,0 +1,47 @@
+.history__info {
+  width: 1088px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.history {
+  max-width: 1088px;
+  margin: 0 auto;
+}
+
+.history__link {
+  text-decoration: none;
+  color: #5964e0;
+  font-weight: bold;
+  font-size: 18px;
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.history__deleteBtn {
+  background-color: #5964e0;
+  border: none;
+  border-radius: 7px;
+  padding: 15px 30px;
+  color: white;
+  font-weight: bold;
+  transition: opacity .3s ease;
+  width: 160px;
+  margin: 0 auto;
+}
+
+.history__deleteBtn:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.history__body {
+  min-height: 200px;
+}
