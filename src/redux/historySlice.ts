@@ -13,9 +13,12 @@ export const historySlice = createSlice({
   },
   reducers: {
     addHistory: (state, action) => {
-      state.history.push(action.payload);
+      state.history.push({
+        jobTitle: action.payload.jobTitle,
+        location: action.payload.location,
+      });
     },
-    clearHistory: (state) => {
+    clearHistory: (state, action) => {
       state.history = [];
     },
   },

@@ -7,7 +7,6 @@ import { Preloader } from "../../components/Preloader/Preloader";
 import { useGetJobAdsQuery } from "../../redux/jobAdsApi";
 import { Header } from "../../components/Header/Header";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { addSearchPramsToLS } from "../../utils/utils";
 import { useAppDispatch } from "../../redux/hook";
 import { addHistory } from "../../redux/historySlice";
 
@@ -38,8 +37,10 @@ export function Main() {
 
   function handleSearchFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    addSearchPramsToLS(currentUser.uid, { jobTitle, location });
-    dispatch(addHistory({ jobTitle, location }));
+    if (currentUser.uid) {
+      const userId = currentUser.uid;
+      dispatch(addHistory({ jobTitle, location, userId }));
+    }
   }
 
   return (
