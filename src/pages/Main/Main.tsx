@@ -38,8 +38,7 @@ export function Main() {
   function handleSearchFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (currentUser.uid) {
-      const userId = currentUser.uid;
-      dispatch(addHistory({ jobTitle, location, userId }));
+      dispatch(addHistory({ jobTitle, location }));
     }
   }
 

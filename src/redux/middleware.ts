@@ -1,19 +1,20 @@
 import { Middleware } from "redux";
 
-import { addSearchPramsToLS, deleteUserHistoryFromLS } from "../utils/utils";
+import { addSearchParamsToLS, deleteUserHistoryFromLS } from "../utils/utils";
 
 import { RootState } from "./store";
 
 export const manageLocalStorageMiddleware: Middleware<{}, RootState> =
   (store) => (next) => (action) => {
+    const currentUserID = localStorage.getItem("currentUserID") || "";
     if (action.type === "history/addHistory") {
-      addSearchPramsToLS(action.payload.userId, {
+      addSearchParamsToLS(currentUserID, {
         jobTitle: action.payload.jobTitle,
         location: action.payload.location,
       });
     }
     if (action.type === "history/clearHistory") {
-      deleteUserHistoryFromLS(action.payload.currentUserID);
+      deleteUserHistoryFromLS(currentUserID);
     }
 
     return next(action);

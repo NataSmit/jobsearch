@@ -8,11 +8,9 @@ import { clearHistory } from "../../redux/historySlice";
 export function History() {
   const { history } = useAppSelector((state) => state.historySlice);
   const dispatch = useAppDispatch();
-  const currentUserID = localStorage.getItem("currentUserID") || "";
-  console.log("currentUserID in history", currentUserID);
 
   function deleteHistory() {
-    dispatch(clearHistory({ currentUserID }));
+    dispatch(clearHistory());
   }
 
   return (

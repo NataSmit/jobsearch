@@ -18,7 +18,7 @@ export const historySlice = createSlice({
         location: action.payload.location,
       });
     },
-    clearHistory: (state, action) => {
+    clearHistory: (state) => {
       state.history = [];
     },
   },
