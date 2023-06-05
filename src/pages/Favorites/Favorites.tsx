@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { onSnapshot, query } from "firebase/firestore";
 
-import { JobAdCard } from "../../components/JobAdCard/JobAdCard";
 import { filterFavoritesByUserId } from "../../utils/utils";
 import { JobAd } from "../../types/types";
 import { jobAdsCollectionRef } from "../../utils/manageFirestore";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { Header } from "../../components/Header/Header";
+import { FavoriteJobAdCard } from "../../components/FavoriteJobAdCard/FavoriteJobAdCard";
 
 export function Favorites() {
   const currentUser = useContext(CurrentUserContext);
@@ -35,7 +35,7 @@ export function Favorites() {
         <ul className="favorites__container">
           {favorites &&
             favorites.map((jobAd) => (
-              <JobAdCard jobAd={jobAd} key={jobAd.id} favorites />
+              <FavoriteJobAdCard jobAdId={jobAd.id} key={jobAd.id} />
             ))}
         </ul>
       </main>

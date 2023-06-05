@@ -9,12 +9,20 @@ import { Header } from "../../components/Header/Header";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useAppDispatch } from "../../redux/hook";
 import { addHistory } from "../../redux/historySlice";
+import { useCurrentUserFavorites } from "../../hooks/useCurrentUserFavorites";
+import {
+  getLastSearchParamsFromLS,
+  saveLastSearchParamsToLS,
+  isAddedToFavorites,
+} from "../../utils/utils";
 
 export function Main() {
   const currentUser = useContext(CurrentUserContext);
+  const favorites = useCurrentUserFavorites() || [];
   const dispatch = useAppDispatch();
-  const [jobTitle, setJobTitle] = useState("");
-  const [location, setLocation] = useState("");
+  const lastSearchParams = getLastSearchParamsFromLS();
+  const [jobTitle, setJobTitle] = useState(lastSearchParams.jobTitle || "");
+  const [location, setLocation] = useState(lastSearchParams.location || "");
   const debouncedJobTitle = useDebounce(jobTitle, 1500);
   const debouncedLocation = useDebounce(location, 1500);
   const { data, isLoading } = useGetJobAdsQuery(
@@ -37,6 +45,7 @@ export function Main() {
 
   function handleSearchFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    saveLastSearchParamsToLS(jobTitle, location);
     if (currentUser.uid) {
       dispatch(addHistory({ jobTitle, location }));
     }
@@ -56,7 +65,13 @@ export function Main() {
         {isLoading && <Preloader isLoading={isLoading} />}
         <ul className="main__container">
           {data &&
-            data.map((jobAd) => <JobAdCard jobAd={jobAd} key={jobAd.id} />)}
+            data.map((jobAd) => (
+              <JobAdCard
+                jobAd={jobAd}
+                key={jobAd.id}
+                isAddedToFavorites={isAddedToFavorites(favorites, jobAd.id)}
+              />
+            ))}
         </ul>
       </main>
     </>
