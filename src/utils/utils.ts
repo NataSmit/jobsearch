@@ -35,7 +35,7 @@ export function getSearchHistoryFromLS(currentUserId: string) {
   }
 }
 
-export function addSearchPramsToLS(currentUserId: string, data: SearchParams) {
+export function addSearchParamsToLS(currentUserId: string, data: SearchParams) {
   const history = getHistoryFromLS();
 
   if (currentUserId in history) {

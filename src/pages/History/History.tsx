@@ -4,16 +4,13 @@ import { Link } from "react-router-dom";
 import { Header } from "../../components/Header/Header";
 import { useAppSelector, useAppDispatch } from "../../redux/hook";
 import { clearHistory } from "../../redux/historySlice";
-import { deleteUserHistoryFromLS } from "../../utils/utils";
 
 export function History() {
   const { history } = useAppSelector((state) => state.historySlice);
   const dispatch = useAppDispatch();
-  const currentUserID = localStorage.getItem("currentUserID") || "";
 
   function deleteHistory() {
     dispatch(clearHistory());
-    deleteUserHistoryFromLS(currentUserID);
   }
 
   return (
