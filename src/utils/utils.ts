@@ -55,3 +55,26 @@ export function deleteUserHistoryFromLS(currentUserID: string) {
   delete history[currentUserID];
   localStorage.setItem("history", JSON.stringify(history));
 }
+
+export function getLastSearchParamsFromLS(): SearchParams {
+  let searchParams = {} as SearchParams;
+  if (localStorage.lastSearchParams) {
+    searchParams =
+      JSON.parse(localStorage.getItem("lastSearchParams") || "") || {};
+  }
+  return searchParams;
+}
+
+export function saveLastSearchParamsToLS(jobTitle: string, location: string) {
+  localStorage.setItem(
+    "lastSearchParams",
+    JSON.stringify({ jobTitle, location })
+  );
+}
+
+export const isAddedToFavorites = (favorites: JobAd[], jobAdId: string) => {
+  const isInFavorites = favorites.find((favoriteJobAd) => {
+    return favoriteJobAd.id === jobAdId;
+  });
+  return Boolean(isInFavorites);
+};

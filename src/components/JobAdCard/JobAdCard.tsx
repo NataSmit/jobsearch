@@ -1,33 +1,31 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { TiDelete } from "react-icons/ti";
 
 import { JobAd } from "../../types/types";
-import { addToFavoritesDB, deleteJobAd } from "../../utils/manageFirestore";
+import { addToFavoritesDB } from "../../utils/manageFirestore";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { deleteJobAd } from "../../utils/manageFirestore";
 
 interface Props {
   jobAd: JobAd;
-  favorites?: boolean;
+  favorite?: boolean;
 }
 
-export function JobAdCard({ jobAd, favorites }: Props) {
+export function JobAdCard({ jobAd, favorite }: Props) {
   const currentUser = useContext(CurrentUserContext);
-  const [isLiked, setLiked] = useState(false);
   const likeBtnClass = classNames({
     jobAd__likeBtn: true,
-    jobAd__likeBtn_state_active: isLiked || favorites,
+    jobAd__likeBtn_state_active: favorite,
   });
 
   function handleLikeClick() {
-    setLiked(!isLiked);
-    addToFavoritesDB(currentUser.uid, jobAd);
-  }
-
-  function deleteFavorite() {
-    deleteJobAd(jobAd.id);
+    if (favorite) {
+      deleteJobAd(jobAd.id);
+    } else {
+      addToFavoritesDB(currentUser.uid, jobAd);
+    }
   }
 
   return (
@@ -38,18 +36,12 @@ export function JobAdCard({ jobAd, favorites }: Props) {
       </Link>
       <div className="jobAd__company">{jobAd.companyName}</div>
       <div className="jobAd__location">{jobAd.location}</div>
-      {favorites ? (
-        <div className="jobAd_deleteBtn" onClick={deleteFavorite}>
-          <TiDelete size={30} />
-        </div>
-      ) : (
-        <button
-          className={likeBtnClass}
-          aria-label="Нравится"
-          type="button"
-          onClick={handleLikeClick}
-        ></button>
-      )}
+      <button
+        className={likeBtnClass}
+        aria-label="Нравится"
+        type="button"
+        onClick={handleLikeClick}
+      ></button>
     </li>
   );
 }
