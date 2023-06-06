@@ -69,7 +69,7 @@ export function Main() {
               <JobAdCard
                 jobAd={jobAd}
                 key={jobAd.id}
-                isAddedToFavorites={isAddedToFavorites(favorites, jobAd.id)}
+                favorite={isAddedToFavorites(favorites, jobAd.id)}
               />
             ))}
         </ul>

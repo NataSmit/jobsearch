@@ -73,8 +73,8 @@ export function saveLastSearchParamsToLS(jobTitle: string, location: string) {
 }
 
 export const isAddedToFavorites = (favorites: JobAd[], jobAdId: string) => {
-  const isLiked = favorites.find((favoriteJobAd) => {
+  const isInFavorites = favorites.find((favoriteJobAd) => {
     return favoriteJobAd.id === jobAdId;
   });
-  return Boolean(isLiked);
+  return Boolean(isInFavorites);
 };
