@@ -5,7 +5,6 @@ import { SearchForm } from "../../components/SearchForm/SearchForm";
 import { useDebounce } from "../../hooks/useDebounce";
 import { Preloader } from "../../components/Preloader/Preloader";
 import { useGetJobAdsQuery } from "../../redux/jobAdsApi";
-import { Header } from "../../components/Header/Header";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useAppDispatch } from "../../redux/hook";
 import { addHistory } from "../../redux/historySlice";
@@ -16,7 +15,7 @@ import {
   isAddedToFavorites,
 } from "../../utils/utils";
 
-export function Main() {
+export default function Main() {
   const currentUser = useContext(CurrentUserContext);
   const favorites = useCurrentUserFavorites() || [];
   const dispatch = useAppDispatch();
@@ -52,28 +51,25 @@ export function Main() {
   }
 
   return (
-    <>
-      <Header />
-      <main className="main">
-        <SearchForm
-          jobTitle={jobTitle}
-          location={location}
-          handleJobTitleChange={handleJobTitleChange}
-          handleLocationChange={handleLocationChange}
-          handleSearchFormSubmit={handleSearchFormSubmit}
-        />
-        {isLoading && <Preloader isLoading={isLoading} />}
-        <ul className="main__container">
-          {data &&
-            data.map((jobAd) => (
-              <JobAdCard
-                jobAd={jobAd}
-                key={jobAd.id}
-                favorite={isAddedToFavorites(favorites, jobAd.id)}
-              />
-            ))}
-        </ul>
-      </main>
-    </>
+    <main className="main">
+      <SearchForm
+        jobTitle={jobTitle}
+        location={location}
+        handleJobTitleChange={handleJobTitleChange}
+        handleLocationChange={handleLocationChange}
+        handleSearchFormSubmit={handleSearchFormSubmit}
+      />
+      {isLoading && <Preloader isLoading={isLoading} />}
+      <ul className="main__container">
+        {data &&
+          data.map((jobAd) => (
+            <JobAdCard
+              jobAd={jobAd}
+              key={jobAd.id}
+              favorite={isAddedToFavorites(favorites, jobAd.id)}
+            />
+          ))}
+      </ul>
+    </main>
   );
 }

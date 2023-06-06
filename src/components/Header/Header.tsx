@@ -1,13 +1,16 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import logo from "../../images/logo.8c0b6449.svg";
 import { handleSignOut } from "../../utils/manageFirestore";
 
 export function Header() {
+  const navigate = useNavigate();
   function handleLogout() {
     handleSignOut();
     localStorage.removeItem("currentUserID");
+    localStorage.removeItem("lastSearchParams");
+    navigate("/signin");
   }
 
   return (

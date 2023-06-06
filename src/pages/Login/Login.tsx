@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, AuthError } from "firebase/auth";
 import classNames from "classnames";
 
 import { auth } from "../../firebaseConfig";
 import { emailTemplateRegex } from "../../utils/regex";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export function Login() {
+  const navigate = useNavigate();
+  const currentUser = useContext(CurrentUserContext);
   const [newType, setNewType] = useState(false);
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +31,12 @@ export function Login() {
     login__viewToggle: true,
     login__viewToggle_type_visible: newType,
   });
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/");
+    }
+  }, [currentUser]);
 
   function handleToggleViewBtn() {
     setNewType(!newType);
@@ -56,7 +65,6 @@ export function Login() {
       const typedAuthErr = err as AuthError;
       setLoginError(typedAuthErr.code);
     }
-
     setDefaultState();
   }
 
