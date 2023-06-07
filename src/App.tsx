@@ -20,7 +20,6 @@ const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
 
 function App() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
-  const [isSignedIn, setSignedIn] = useState(true);
   console.log("currentUser", currentUser);
 
   onAuthStateChanged(auth, (user) => {

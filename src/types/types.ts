@@ -70,3 +70,8 @@ export type SearchParams = {
 export type LSHistory = {
   [key: string]: SearchParams[];
 };
+
+export type FavoritesFirebase = {
+  userID: string;
+  id: string;
+};

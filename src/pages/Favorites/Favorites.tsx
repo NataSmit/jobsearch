@@ -1,10 +1,10 @@
-import { JobAd } from "../../types/types";
+import { FavoritesFirebase } from "../../types/types";
 
 import { FavoriteJobAdCard } from "../../components/FavoriteJobAdCard/FavoriteJobAdCard";
 import { useCurrentUserFavorites } from "../../hooks/useCurrentUserFavorites";
 
 export default function Favorites() {
-  const favorites: JobAd[] = useCurrentUserFavorites() || [];
+  const favorites: FavoritesFirebase[] = useCurrentUserFavorites() || [];
 
   return (
     <main className="favorites">

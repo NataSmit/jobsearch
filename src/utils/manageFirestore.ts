@@ -66,16 +66,11 @@ export async function deleteJobAd(docId: string) {
 }
 
 //using setDoc() function where I must provide docID
-export async function addToFavoritesDB(userId: string, jobAd: JobAd) {
-  console.log("i am working");
+export async function addToFavoritesDB(userId: string, jobAdId: string) {
   try {
-    await setDoc(doc(db, "jobAds", jobAd.id), {
+    await setDoc(doc(db, "jobAds", jobAdId), {
       userID: userId,
-      id: jobAd.id,
-      companyName: jobAd.companyName,
-      location: jobAd.location,
-      publicationTime: jobAd.publicationTime,
-      title: jobAd.title,
+      id: jobAdId,
     });
   } catch (err) {
     console.log(err);

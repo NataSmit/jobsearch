@@ -1,17 +1,14 @@
 import React from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 import logo from "../../images/logo.8c0b6449.svg";
-import { handleSignOut } from "../../utils/manageFirestore";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { AuthButtons } from "../AuthButtons/AuthButtons";
+import { Navigation } from "../Navigation/Navigation";
 
 export function Header() {
-  const navigate = useNavigate();
-  function handleLogout() {
-    handleSignOut();
-    localStorage.removeItem("currentUserID");
-    localStorage.removeItem("lastSearchParams");
-    navigate("/signin");
-  }
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <header className="header">
@@ -21,27 +18,10 @@ export function Header() {
             <img className="header__logo-img" src={logo} alt="Logo" />
           </Link>
         </div>
-        <div className="header__buttons">
-          <button className="header__button">Signin</button>
-          <button className="header__button">Signup</button>
-        </div>
-        <nav className="header__menu">
-          <ul className="header__list">
-            <li className="header__list-item">
-              <NavLink to="/favorites" className="header__list-link">
-                Favorites
-              </NavLink>
-            </li>
-            <li className="header__list-item">
-              <NavLink to="/history" className="header__list-link">
-                History
-              </NavLink>
-            </li>
-          </ul>
-          <button className="header__button" onClick={handleLogout}>
-            Logout
-          </button>
-        </nav>
+        {currentUser && (
+          <div className="header__user">User: {currentUser.email}</div>
+        )}
+        {currentUser ? <Navigation /> : <AuthButtons />}
       </div>
     </header>
   );

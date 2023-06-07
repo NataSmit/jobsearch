@@ -24,7 +24,7 @@ export function JobAdCard({ jobAd, favorite }: Props) {
     if (favorite) {
       deleteJobAd(jobAd.id);
     } else {
-      addToFavoritesDB(currentUser.uid, jobAd);
+      addToFavoritesDB(currentUser.uid, jobAd.id);
     }
   }
 

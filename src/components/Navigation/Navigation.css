@@ -1,0 +1,25 @@
+.header__menu {
+  display: flex;
+  align-items: center;
+}
+
+.header__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header__list-item {
+  display: inline-block;
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 18px;
+  transition: opacity .3s;
+}
+
+.header__list-link {
+  text-decoration: none;
+  color: white;
+  font-family: inherit;
+}

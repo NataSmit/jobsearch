@@ -1,17 +1,9 @@
-import { ServerJobAdInfo } from "../types/types";
-import { JobAd, SearchParams, LSHistory } from "../types/types";
-
-export function convertServerJobAdData(obj: ServerJobAdInfo): JobAd {
-  return {
-    companyName: obj.company_name,
-    publicationTime: obj.formatted_relative_time,
-    id: obj.id,
-    //link: obj.link,
-    //locality: obj.locality,
-    location: obj.location,
-    title: obj.title,
-  };
-}
+import {
+  JobAd,
+  SearchParams,
+  LSHistory,
+  FavoritesFirebase,
+} from "../types/types";
 
 export function filterFavoritesByUserId(favorites: JobAd[], userId: string) {
   return favorites.filter((favObj) => favObj.userID === userId);
@@ -72,7 +64,10 @@ export function saveLastSearchParamsToLS(jobTitle: string, location: string) {
   );
 }
 
-export const isAddedToFavorites = (favorites: JobAd[], jobAdId: string) => {
+export const isAddedToFavorites = (
+  favorites: FavoritesFirebase[],
+  jobAdId: string
+) => {
   const isInFavorites = favorites.find((favoriteJobAd) => {
     return favoriteJobAd.id === jobAdId;
   });
