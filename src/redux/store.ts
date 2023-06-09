@@ -12,10 +12,10 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
+    getDefaultMiddleware().concat([
       jobAdsApi.middleware,
-      manageLocalStorageMiddleware
-    ),
+      manageLocalStorageMiddleware,
+    ]),
 });
 
 export default store;

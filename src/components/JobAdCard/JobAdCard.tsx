@@ -2,6 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
 import { JobAd } from "../../types/types";
 import { addToFavoritesDB } from "../../utils/manageFirestore";
@@ -45,3 +46,15 @@ export function JobAdCard({ jobAd, favorite }: Props) {
     </li>
   );
 }
+
+JobAdCard.propTypes = {
+  jobAd: PropTypes.shape({
+    companyName: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    publicationTime: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    userID: PropTypes.string,
+  }),
+  favorite: PropTypes.bool,
+};

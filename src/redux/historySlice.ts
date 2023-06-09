@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { SearchParams } from "../types/types";
 import { getSearchHistoryFromLS } from "../utils/utils";
 
-const currentUserID = localStorage.getItem("currentUserID") || "";
-const history: SearchParams[] = getSearchHistoryFromLS(currentUserID);
+const history: SearchParams[] = [];
 
 export const historySlice = createSlice({
   name: "history",
@@ -13,6 +12,7 @@ export const historySlice = createSlice({
   },
   reducers: {
     addHistory: (state, action) => {
+      ("addHistory working");
       state.history.push({
         jobTitle: action.payload.jobTitle,
         location: action.payload.location,
@@ -21,7 +21,11 @@ export const historySlice = createSlice({
     clearHistory: (state) => {
       state.history = [];
     },
+    getHistoryFromLS: (state, action) => {
+      state.history = getSearchHistoryFromLS(action.payload.uid);
+    },
   },
 });
 
-export const { addHistory, clearHistory } = historySlice.actions;
+export const { addHistory, clearHistory, getHistoryFromLS } =
+  historySlice.actions;

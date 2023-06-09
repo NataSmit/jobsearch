@@ -1,13 +1,4 @@
-import {
-  JobAd,
-  SearchParams,
-  LSHistory,
-  FavoritesFirebase,
-} from "../types/types";
-
-export function filterFavoritesByUserId(favorites: JobAd[], userId: string) {
-  return favorites.filter((favObj) => favObj.userID === userId);
-}
+import { SearchParams, LSHistory, FavoritesFirebase } from "../types/types";
 
 function getHistoryFromLS() {
   let history: LSHistory = {};
@@ -28,7 +19,9 @@ export function getSearchHistoryFromLS(currentUserId: string) {
 }
 
 export function addSearchParamsToLS(currentUserId: string, data: SearchParams) {
+  console.log("addSearchParamsToLS working");
   const history = getHistoryFromLS();
+  console.log("addSearchParamsToLS", history);
 
   if (currentUserId in history) {
     history[currentUserId].push(data);
@@ -48,28 +41,12 @@ export function deleteUserHistoryFromLS(currentUserID: string) {
   localStorage.setItem("history", JSON.stringify(history));
 }
 
-export function getLastSearchParamsFromLS(): SearchParams {
-  let searchParams = {} as SearchParams;
-  if (localStorage.lastSearchParams) {
-    searchParams =
-      JSON.parse(localStorage.getItem("lastSearchParams") || "") || {};
-  }
-  return searchParams;
-}
-
-export function saveLastSearchParamsToLS(jobTitle: string, location: string) {
-  localStorage.setItem(
-    "lastSearchParams",
-    JSON.stringify({ jobTitle, location })
-  );
-}
-
-export const isAddedToFavorites = (
+export const isInFavorites = (
   favorites: FavoritesFirebase[],
   jobAdId: string
 ) => {
-  const isInFavorites = favorites.find((favoriteJobAd) => {
+  const favoriteJobAd = favorites.find((favoriteJobAd) => {
     return favoriteJobAd.id === jobAdId;
   });
-  return Boolean(isInFavorites);
+  return Boolean(favoriteJobAd);
 };

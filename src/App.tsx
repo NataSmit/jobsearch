@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, lazy } from "react";
+import { useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 
@@ -17,6 +17,7 @@ const JobInfoPage = lazy(() => import("./pages/JobInfoPage/JobInfoPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage/SearchPage"));
 const History = lazy(() => import("./pages/History/History"));
 const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
+const NotFoundPage = lazy(() => import("./pages/NotFound/NotFound"));
 
 function App() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/favorites" element={<Favorites />} />
               </Route>
             </Route>
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Root>
       </CurrentUserContext.Provider>

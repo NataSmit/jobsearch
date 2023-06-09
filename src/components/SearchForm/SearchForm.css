@@ -40,6 +40,10 @@
   cursor: pointer;
 }
 
+.form__submitBtn:disabled {
+  background-color: gray;
+}
+
 .form__container {
   display: flex;
   align-items: center;

@@ -1,5 +1,7 @@
 import React from "react";
 import { ImSearch, ImLocation } from "react-icons/im";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 interface Props {
   jobTitle: string;
@@ -7,6 +9,7 @@ interface Props {
   handleJobTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLocationChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSearchFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  isLoading: boolean;
 }
 
 export function SearchForm({
@@ -15,6 +18,7 @@ export function SearchForm({
   handleJobTitleChange,
   handleLocationChange,
   handleSearchFormSubmit,
+  isLoading,
 }: Props) {
   return (
     <form className="form" onSubmit={handleSearchFormSubmit}>
@@ -41,8 +45,20 @@ export function SearchForm({
             required
           />
         </label>
-        <button className="form__submitBtn">Search</button>
+
+        <button className="form__submitBtn" disabled={isLoading}>
+          Search
+        </button>
       </div>
     </form>
   );
 }
+
+SearchForm.propTypes = {
+  jobTitle: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  handleJobTitleChange: PropTypes.func.isRequired,
+  handleLocationChange: PropTypes.func.isRequired,
+  handleSearchFormSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};

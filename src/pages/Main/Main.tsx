@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { JobAdCard } from "../../components/JobAdCard/JobAdCard";
 import { SearchForm } from "../../components/SearchForm/SearchForm";
@@ -9,19 +10,15 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useAppDispatch } from "../../redux/hook";
 import { addHistory } from "../../redux/historySlice";
 import { useCurrentUserFavorites } from "../../hooks/useCurrentUserFavorites";
-import {
-  getLastSearchParamsFromLS,
-  saveLastSearchParamsToLS,
-  isAddedToFavorites,
-} from "../../utils/utils";
+import { isInFavorites } from "../../utils/utils";
 
 export default function Main() {
+  const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
   const favorites = useCurrentUserFavorites() || [];
   const dispatch = useAppDispatch();
-  const lastSearchParams = getLastSearchParamsFromLS();
-  const [jobTitle, setJobTitle] = useState(lastSearchParams.jobTitle || "");
-  const [location, setLocation] = useState(lastSearchParams.location || "");
+  const [jobTitle, setJobTitle] = useState("");
+  const [location, setLocation] = useState("");
   const debouncedJobTitle = useDebounce(jobTitle, 1500);
   const debouncedLocation = useDebounce(location, 1500);
   const { data, isLoading } = useGetJobAdsQuery(
@@ -44,8 +41,8 @@ export default function Main() {
 
   function handleSearchFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    saveLastSearchParamsToLS(jobTitle, location);
-    if (currentUser.uid) {
+    navigate(`/search/${jobTitle}/${location}`);
+    if (currentUser) {
       dispatch(addHistory({ jobTitle, location }));
     }
   }
@@ -58,18 +55,24 @@ export default function Main() {
         handleJobTitleChange={handleJobTitleChange}
         handleLocationChange={handleLocationChange}
         handleSearchFormSubmit={handleSearchFormSubmit}
+        isLoading={isLoading}
       />
       {isLoading && <Preloader isLoading={isLoading} />}
       <ul className="main__container">
         {data &&
-          data.map((jobAd) => (
-            <JobAdCard
-              jobAd={jobAd}
-              key={jobAd.id}
-              favorite={isAddedToFavorites(favorites, jobAd.id)}
-            />
-          ))}
+          data
+            .slice(0, 3)
+            .map((jobAd) => (
+              <JobAdCard
+                jobAd={jobAd}
+                key={jobAd.id}
+                favorite={isInFavorites(favorites, jobAd.id)}
+              />
+            ))}
       </ul>
+      {data && data.length > 3 && (
+        <div className="main__info">To view more results click Search</div>
+      )}
     </main>
   );
 }
