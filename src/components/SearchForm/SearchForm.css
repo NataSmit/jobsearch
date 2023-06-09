@@ -49,3 +49,24 @@
   align-items: center;
   justify-content: space-around;
 }
+
+@media (max-width: 1079px) {
+  .form__container {
+    max-width: 600px;
+  }
+
+  .form__lable, .form__button__container {
+    padding: 10px;
+    max-width: 200px;
+  }
+
+  .form__input {
+    width: 150px;
+    padding: 9px;
+    font-size: 16px;
+  }
+
+  .form__submitBtn {
+    padding: 9px 15px;
+  }
+}

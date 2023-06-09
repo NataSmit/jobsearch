@@ -70,9 +70,20 @@ export default function Main() {
               />
             ))}
       </ul>
-      {data && data.length > 3 && (
-        <div className="main__info">To view more results click Search</div>
-      )}
+      <div className="main__infoBlock">
+        {!data && !isLoading && (
+          <div className="main__info">
+            In the project is used Indeed API. Indeed is an American employment
+            site. It aggregates job listings from thousands of websites,
+            including job boards, staffing firms, associations, and company
+            career pages. With Indeed, you can search millions of jobs online to
+            find the next step in your career.
+          </div>
+        )}
+        {data && data.length > 3 && (
+          <div className="main__info">To view more results click Search</div>
+        )}
+      </div>
     </main>
   );
 }

@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import { jobAdsApi } from "./jobAdsApi";
 import { historySlice } from "./historySlice";
-import { manageLocalStorageMiddleware } from "./middleware";
+import { manageLocalStorageMiddleware } from "./manageLSMiddleware";
 
 const rootReducer = combineReducers({
   [jobAdsApi.reducerPath]: jobAdsApi.reducer,

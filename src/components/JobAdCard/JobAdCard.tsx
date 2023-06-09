@@ -25,7 +25,7 @@ export function JobAdCard({ jobAd, favorite }: Props) {
     if (favorite) {
       deleteJobAd(jobAd.id);
     } else {
-      addToFavoritesDB(currentUser.uid, jobAd.id);
+      addToFavoritesDB(currentUser!.uid, jobAd.id);
     }
   }
 
@@ -37,12 +37,14 @@ export function JobAdCard({ jobAd, favorite }: Props) {
       </Link>
       <div className="jobAd__company">{jobAd.companyName}</div>
       <div className="jobAd__location">{jobAd.location}</div>
-      <button
-        className={likeBtnClass}
-        aria-label="Нравится"
-        type="button"
-        onClick={handleLikeClick}
-      ></button>
+      {currentUser && (
+        <button
+          className={likeBtnClass}
+          aria-label="Нравится"
+          type="button"
+          onClick={handleLikeClick}
+        ></button>
+      )}
     </li>
   );
 }

@@ -1,11 +1,15 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
 
 import { useGetJobAdByIdQuery } from "../../redux/jobAdsApi";
+import NoIcon from "../../images/noIcon.svg";
 
 export default function JobInfoPage() {
   const { id } = useParams();
-  const { data } = useGetJobAdByIdQuery(id || "");
+  const { data, isLoading } = useGetJobAdByIdQuery(id || "");
+
+  if (isLoading) return <RotatingLines strokeColor="#5964e0" />;
 
   return (
     <div className="jobInfoPage">
@@ -13,7 +17,7 @@ export default function JobInfoPage() {
         <div className="jobInfoPage__company">
           <div className="jobInfoPage__logo">
             <img
-              src={data?.logo}
+              src={data?.logo || NoIcon}
               alt="Logo"
               className="jobInfoPage__logoImage"
             />
@@ -49,7 +53,9 @@ export default function JobInfoPage() {
               <h1 className="jobInfoPage__title">{data?.jobTitle}</h1>
               <p className="jobInfoPage__country">{data?.location}</p>
             </div>
-            <button className="jobInfoPage__applyBtn">Apply Now</button>
+            <Link to="/apply">
+              <button className="jobInfoPage__applyBtn">Apply Now</button>
+            </Link>
           </div>
 
           <div className="jobInfoPage__description">

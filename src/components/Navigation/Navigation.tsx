@@ -8,7 +8,6 @@ export function Navigation() {
   function handleLogout() {
     handleSignOut();
     localStorage.removeItem("currentUserID");
-    localStorage.removeItem("lastSearchParams");
     navigate("/signin");
   }
 

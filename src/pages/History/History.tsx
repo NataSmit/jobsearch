@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
+import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "../../redux/hook";
@@ -6,13 +7,14 @@ import { clearHistory, getHistoryFromLS } from "../../redux/historySlice";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function History() {
-  const { uid } = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
+  const userId = currentUser?.uid;
   const dispatch = useAppDispatch();
   const { history } = useAppSelector((state) => state.historySlice);
 
   useEffect(() => {
-    dispatch(getHistoryFromLS({ uid }));
-  }, [uid, dispatch]);
+    dispatch(getHistoryFromLS({ userId }));
+  }, [userId, dispatch, currentUser]);
 
   function deleteHistory() {
     dispatch(clearHistory());

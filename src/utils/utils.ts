@@ -19,9 +19,7 @@ export function getSearchHistoryFromLS(currentUserId: string) {
 }
 
 export function addSearchParamsToLS(currentUserId: string, data: SearchParams) {
-  console.log("addSearchParamsToLS working");
   const history = getHistoryFromLS();
-  console.log("addSearchParamsToLS", history);
 
   if (currentUserId in history) {
     history[currentUserId].push(data);

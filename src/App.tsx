@@ -18,10 +18,10 @@ const SearchPage = lazy(() => import("./pages/SearchPage/SearchPage"));
 const History = lazy(() => import("./pages/History/History"));
 const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
 const NotFoundPage = lazy(() => import("./pages/NotFound/NotFound"));
+const Apply = lazy(() => import("./pages/Apply/Apply"));
 
 function App() {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
-  console.log("currentUser", currentUser);
 
   onAuthStateChanged(auth, (user) => {
     setCurrentUser(user);
@@ -48,6 +48,7 @@ function App() {
               >
                 <Route path="/history" element={<History />} />
                 <Route path="/favorites" element={<Favorites />} />
+                <Route path="/apply" element={<Apply />} />
               </Route>
             </Route>
             <Route path="*" element={<NotFoundPage />} />

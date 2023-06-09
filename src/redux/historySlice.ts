@@ -22,7 +22,7 @@ export const historySlice = createSlice({
       state.history = [];
     },
     getHistoryFromLS: (state, action) => {
-      state.history = getSearchHistoryFromLS(action.payload.uid);
+      state.history = getSearchHistoryFromLS(action.payload.userId);
     },
   },
 });

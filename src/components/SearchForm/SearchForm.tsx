@@ -1,7 +1,6 @@
 import React from "react";
 import { ImSearch, ImLocation } from "react-icons/im";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 interface Props {
   jobTitle: string;

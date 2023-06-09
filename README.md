@@ -1,46 +1,43 @@
-# Getting Started with Create React App
+## 1 уровень (необходимый минимум)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### React
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+- Пишем функциональные компоненты c хуками в приоритете над классовыми. ☑️ 
 
-### `npm start`
+- Есть четкое разделение компонентов на [умные](src/pages/Main/Main.tsx) - и [глупые](src/components/Layout/Layout.tsx) ☑️
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Есть рендеринг списков [страница поиска](src/pages/SearchPage/SearchPage.tsx) ☑️
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Реализована хотя бы одна [форма](src/pages/Login/Login.tsx) ☑️
 
-### `npm test`
+- Есть применение Контекст API [current user](src/contexts/CurrentUserContext.ts) ☑️
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Есть [применение](src/components/Layout/Layout.tsx) [предохранителя](src/components/ErrorFallback.tsx) ☑️
 
-### `npm run build`
+- Есть хотя бы один кастомный хук [useCurrentUserFavorites](src/hooks/useCurrentUserFavorites.ts) ☑️
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Хотя бы несколько компонентов используют PropTypes [JobAdCard](src/components/JobAdCard/JobAdCard.tsx) [SearchForm](src/components/SearchForm/SearchForm.tsx) ☑️
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Поиск не должен триггерить много запросов к серверу. [useDebounce](src/hooks/useDebounce.ts) ☑️
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Есть применение [lazy + Suspense](src/components/Layout/Layout.tsx) ☑️
 
-### `npm run eject`
+### Redux
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Используем Modern Redux with Redux Toolkit ☑️
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Используем [слайсы](src/redux/historySlice.ts) ☑️
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Есть хотя бы одна кастомная [мидлвара](src/redux/manageLSMiddleware.ts) ☑️
 
-## Learn More
+- Используется [RTK Query](src/redux/jobAdsApi.ts) ☑️
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Используется [Transforming Responses](src/redux/jobAdsApi.ts) ☑️
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 2 уровень (необязательный)  
+
+- Использование [TypeScript](tsconfig.json)
