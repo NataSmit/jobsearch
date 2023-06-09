@@ -1,0 +1,22 @@
+.favorites {
+  padding-bottom: 60px;
+}
+
+.favorites__container {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fill, 330px);
+  padding: 48px 0 56px 0;
+  list-style: none;
+  box-sizing: border-box;
+  justify-content: space-between;
+  justify-items: center;
+}
+
+.favorites__link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

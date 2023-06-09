@@ -1,0 +1,72 @@
+.jobAd {
+  width: 330px;
+  padding: 25px;
+  box-shadow: 0px 0.996045px 3.98418px rgba(51, 51, 51, 0.15);
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.jobAd__time {
+  color: #6e8098;
+}
+
+.jobAd__title {
+  color: #19202d;
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.jobAd__company {
+  margin-bottom: 50px;
+  color: #6e8098;
+}
+
+.jobAd__location {
+  color: #5964e0;
+  font-weight: bold;
+}
+
+.jobAd__likeBtn {
+  transition: opacity 0.3s;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  background-image: url('../../images/heart_white.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-width: 22px;
+  height: 19px;
+  margin: 0 0 3px 0;
+  align-self: flex-end;
+}
+
+
+.jobAd__likeBtn:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.jobAd__likeBtn_state_active {
+  background-image: url('../../images/heart_black.svg');
+}
+
+.jobAd__link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  flex-grow: 1;
+}
+
+.jobAd_deleteBtn {
+ cursor: pointer;
+ transition: opacity 0.3s;
+ align-self: flex-end;
+}
+
+.jobAd_deleteBtn:hover {
+  opacity: 0.5;
+}

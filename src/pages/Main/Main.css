@@ -1,0 +1,32 @@
+.main {
+  padding-bottom: 60px;
+  position: relative;
+  top: -40px;
+  
+}
+
+.main__container {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fill, 330px);
+  padding: 48px 0 56px 0;
+  list-style: none;
+  box-sizing: border-box;
+  justify-content: space-between;
+  justify-items: center;
+}
+
+.main__info {
+  font-size: 20px;
+  font-weight: bold;
+  color: #5964e0;
+  line-height: 1.5;
+}
+
+.main__infoBlock {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}

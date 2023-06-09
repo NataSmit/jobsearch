@@ -1,25 +1,50 @@
-import { ServerJobDetails, ServerJobPositionData } from "../types/types";
+import { SearchParams, LSHistory, FavoritesFirebase } from "../types/types";
 
-function convertServerJobDetails(obj: ServerJobDetails) {
-  return {
-    company: obj.company,
-    creationDate: obj.creation_date,
-    description: obj.description,
-    jobTitle: obj.job_title,
-    jobType: obj.job_type,
-    location: obj.location,
-    salary: obj.salary,
-  };
+function getHistoryFromLS() {
+  let history: LSHistory = {};
+  if (localStorage["history"]) {
+    history = JSON.parse(localStorage.getItem("history") || "") || {};
+  }
+  return history;
 }
 
-function convertServerJobPositionData(obj: ServerJobPositionData) {
-  return {
-    companyName: obj.company_name,
-    publicationTime: obj.formatted_relative_time,
-    id: obj.id,
-    link: obj.link,
-    locality: obj.locality,
-    location: obj.location,
-    title: obj.title,
-  };
+export function getSearchHistoryFromLS(currentUserId: string) {
+  const history = getHistoryFromLS();
+
+  if (currentUserId in history) {
+    return history[currentUserId];
+  } else {
+    return [];
+  }
 }
+
+export function addSearchParamsToLS(currentUserId: string, data: SearchParams) {
+  const history = getHistoryFromLS();
+
+  if (currentUserId in history) {
+    history[currentUserId].push(data);
+  } else {
+    history[currentUserId] = [data];
+  }
+  localStorage.setItem("history", JSON.stringify(history));
+}
+
+export function saveCurrentUserIDToLS(currentUserID: string) {
+  localStorage.setItem("currentUserID", currentUserID);
+}
+
+export function deleteUserHistoryFromLS(currentUserID: string) {
+  const history = JSON.parse(localStorage.getItem("history") || "");
+  delete history[currentUserID];
+  localStorage.setItem("history", JSON.stringify(history));
+}
+
+export const isInFavorites = (
+  favorites: FavoritesFirebase[],
+  jobAdId: string
+) => {
+  const favoriteJobAd = favorites.find((favoriteJobAd) => {
+    return favoriteJobAd.id === jobAdId;
+  });
+  return Boolean(favoriteJobAd);
+};
